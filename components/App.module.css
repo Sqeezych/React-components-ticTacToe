@@ -1,0 +1,9 @@
+* {
+    margin: 0px;
+    padding: 0px
+}
+
+.restartButton {
+    width: 210px;
+    height: 105px;
+}
