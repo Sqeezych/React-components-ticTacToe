@@ -9,7 +9,7 @@ export default function App() {
 
   const [currentPlayer, setCurrentPlayer] = useState(CONST.PLAYER.X);
   const [status, setStatus] = useState(CONST.STATUS.TURN)
-  const [field, setField] = useState(['', '', '','', '', '','', '', '']);
+  const [field, setField] = useState(Array(9).fill(''));
   const [winner, setWinner] = useState('')
 
   // Обнуление игры 
