@@ -1,24 +1,24 @@
-import { useState } from 'react'
-import * as CONST from './Const'
+import { useState } from 'react';
+import * as CONST from './Const';
 
 import Information from './Information';
-import Field from './Field'
-import styles from './App.module.css'
+import Field from './Field';
+import RestartButton from './RestartButton';
 
 export default function App() {
 
   const [currentPlayer, setCurrentPlayer] = useState(CONST.PLAYER.X);
-  const [status, setStatus] = useState(CONST.STATUS.TURN)
+  const [status, setStatus] = useState(CONST.STATUS.TURN);
   const [field, setField] = useState(Array(9).fill(''));
-  const [winner, setWinner] = useState('')
+  const [winner, setWinner] = useState('');
 
   // Обнуление игры 
-  function restartGame() {
-    setStatus(CONST.STATUS.TURN)
-    setCurrentPlayer(CONST.PLAYER.X)
-    setField(['', '', '','', '', '','', '', ''])
-    setWinner('')
-  }
+  // function restartGame() {
+  //   setStatus(CONST.STATUS.TURN);
+  //   setCurrentPlayer(CONST.PLAYER.X);
+  //   setField(['', '', '','', '', '','', '', '']);
+  //   setWinner('');
+  // }
 
   return (
     <>
@@ -32,7 +32,8 @@ export default function App() {
       setStatus={setStatus}
       winner={winner} 
       setWinner={setWinner} />
-      <button className={styles.restartButton} onClick={restartGame}>Начать заново</button>
+      <RestartButton />
+      {/* <button className={styles.restartButton} onClick={restartGame}>Начать заново</button> */}
     </>
   )
 }

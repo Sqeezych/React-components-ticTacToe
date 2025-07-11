@@ -1,7 +1,11 @@
 import FieldLayout from "./FieldLayout";
-import * as CONST from './Const'
+import { store } from '../src/store';
+import * as CONST from './Const';
 
-export default function Field({ field, setField, currentPlayer, setCurrentPlayer, status, setStatus, winner, setWinner}) {
+export default function Field() {
+
+    // Получаем данные из стора вместо прокидывания пропсов
+    const { field, setField, currentPlayer, setCurrentPlayer, status, setStatus, setWinner } = store.getState();
 
     // Функция для проверки окончания игры
     function isEnd(field) {
@@ -11,33 +15,33 @@ export default function Field({ field, setField, currentPlayer, setCurrentPlayer
         if (field[subarr[0]] !== '' 
           && field[subarr[0]] === field[subarr[1]] 
           && field[subarr[0]] === field[subarr[2]]) {
-            setStatus(CONST.STATUS.WIN)
-            setWinner(field[subarr[0]])
-            return
+            setStatus(CONST.STATUS.WIN);
+            setWinner(field[subarr[0]]);
+            return;
         }
       }
       
       // Проверка на ничью
-      if (!field.some(i => i === '')) {
-        setStatus(CONST.STATUS.DRAW)
+      if (!field.some(elem => elem === '')) {
+        setStatus(CONST.STATUS.DRAW);
       }
 
     }
     
     // Обработчик нажатия на ячейку
     function onPush(event) {
-        const id = event.target.id
-        let arr = [...field]
+        const id = event.target.id;
+        let arr = [...field];
 
         if(status !== CONST.STATUS.DRAW || status !== CONST.STATUS.WIN) {
-          arr[id] = currentPlayer
-          setField(arr)
-          setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X')
+          arr[id] = currentPlayer;
+          setField(arr);
+          setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X');
         }
-        isEnd(arr)
+        isEnd(arr);
     }
 
     return (
-        <FieldLayout status={status} field={field} onPush={onPush} />
+        <FieldLayout />
     )
   }

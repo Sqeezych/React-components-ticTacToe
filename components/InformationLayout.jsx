@@ -1,4 +1,4 @@
-export default function InformationLayout ({result}) {
+export default function InformationLayout ({ result }) {
     return (
         <div>{result}</div>
     )
