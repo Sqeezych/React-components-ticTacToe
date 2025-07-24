@@ -6,7 +6,6 @@ export default function RestartButton() {
 
     function restartGame() {
         store.dispatch(RESTART_GAME());
-        // store.dispatch({ type: 'RESTART_GAME' });
     }
 
     return <button onClick={restartGame} className={styles.restartButton}>Начать заново</button>

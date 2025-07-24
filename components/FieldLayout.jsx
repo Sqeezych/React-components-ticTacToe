@@ -1,23 +1,11 @@
-import { useState, useEffect } from 'react';
-import { store } from '../src/store';
 import * as CONST from '../components/Const';
 import styles from './FieldLayout.module.css';
 
-export default function FieldLayout ({ onPush }) {
-    const [status, setStatus] = useState(store.getState().status);
-    const [field, setField] = useState(store.getState().field);
-
-    useEffect(() => {
-      let unsubscribe = store.subscribe(() => {
-        setStatus(store.getState().status);
-        setField(store.getState().field);
-      });
-      unsubscribe();
-    }, []);
+export default function FieldLayout ({ onPush, field, status }) {
 
     return (
         <div className={styles.FieldLayout}>
-            {field.map((elem, id) => <button className={styles.itemButton} onClick={status === CONST.STATUS.TURN && onPush} key={id} id={id}>{elem}</button>)}
+            {field.map((elem, id) => <button className={styles.itemButton} onClick={() => onPush(id)} key={id}>{elem}</button>)}
         </div>
     )
 }
