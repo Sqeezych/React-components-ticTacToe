@@ -1,14 +1,15 @@
-import { appReducer, initialState } from "./reducer";
+import { createStore } from "redux";
+import { reducer } from "./reducer";
 
-function createStore (reducer, initialState) {
-    let state = initialState;
+// function createStore (reducer) {
+//     let state;
 
-    return {
-        dispatch: (action) => {
-            state = reducer(state, action);
-        },
-        getState: () => state,
-    }
-}
+//     return {
+//         dispatch: (action) => {
+//             state = reducer(action, state);
+//         },
+//         getState: () => state,
+//     }
+// }
 
-export const store = createStore(appReducer, initialState)
+export const store = createStore(reducer);

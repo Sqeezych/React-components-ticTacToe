@@ -1,10 +1,19 @@
-import * as CONST from './Const';
+import { useState, useEffect } from 'react';
 import { store } from '../src/store';
+import * as CONST from '../components/Const';
 import styles from './FieldLayout.module.css';
 
-export default function FieldLayout () {
-    // Получаем данные из стора вместо прокидывания пропсов
-    const { field, onPush, status } = store.getState();
+export default function FieldLayout ({ onPush }) {
+    const [status, setStatus] = useState(store.getState().status);
+    const [field, setField] = useState(store.getState().field);
+
+    useEffect(() => {
+      let unsubscribe = store.subscribe(() => {
+        setStatus(store.getState().status);
+        setField(store.getState().field);
+      });
+      unsubscribe();
+    }, []);
 
     return (
         <div className={styles.FieldLayout}>

@@ -1,23 +1,17 @@
-import * as CONST from './Const';
+import { useState, useEffect } from 'react';
 import { store } from '../src/store';
-import InformationLayout from './InformationLayout';
 
 export default function Information () {
+  const [result, setResult] = useState(store.getState().result);
 
-  // Получаем данные из стора вместо прокидывания пропсов
-  const { status, currentPlayer, winner } = store.getState();
-
-  let result;
-
-  if (status === CONST.STATUS.WIN) {
-    result = `Победил ${winner}`;
-  } else if (status === CONST.STATUS.DRAW) {
-    result = `Ничья`;
-  } else {
-    result = `Ход игрока ${currentPlayer}`;
-  }
+  useEffect(() => {
+    let unsubscribe = store.subscribe(() => {
+      setResult(store.getState().result);
+    });
+    unsubscribe();
+  }, []);
 
   return (
-    <InformationLayout result={result} />
+    <div>{result}</div>
   )
 }

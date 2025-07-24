@@ -1,5 +1,9 @@
-export default function InformationLayout ({ result }) {
+import { store } from '../src/store';
+
+export default function InformationLayout() {
+    const { getState } = store;
+
     return (
-        <div>{result}</div>
+        <div>{getState().result}</div>
     )
 }
