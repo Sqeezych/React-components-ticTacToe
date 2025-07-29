@@ -5,10 +5,9 @@ const initialState = {
     status: CONST.STATUS.TURN,
     field: Array(9).fill(''),
     winner: '',
-    result: 'Начинает игру X',
 };
 
-export const reducer = (action, state = initialState) => {
+export const reducer = (state = initialState, action) => {
     const { type, payload } = action;
     
     switch(type) {
@@ -43,7 +42,7 @@ export const reducer = (action, state = initialState) => {
             }
         }
         case 'RESTART_GAME': {
-            return state;
+            return initialState;
         }
         default: 
             return state;

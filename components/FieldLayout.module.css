@@ -1,9 +1,6 @@
-* {
-    margin: 0px;
-    padding: 0px
-}
-
 .FieldLayout {
+    display: flex;
+    flex-wrap: wrap;
     width: 210px;
     height: 210px;
 }
@@ -12,7 +9,6 @@
     width: 70px;
     height: 70px;
     text-align: center;
-    margin: 0px;
-    padding: 0px;
+    font-size: 24px;
 }
 
