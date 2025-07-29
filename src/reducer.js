@@ -11,12 +11,6 @@ export const reducer = (state = initialState, action) => {
     const { type, payload } = action;
     
     switch(type) {
-        case 'SET_RESULT': {
-            return {
-                ...state,
-                result: payload
-            }
-        }
         case 'SET_STATUS': {
             return {
                 ...state,
