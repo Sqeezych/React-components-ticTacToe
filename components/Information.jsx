@@ -1,9 +1,10 @@
-import { store } from '../src/store';
+import { useSelector } from 'react-redux';
 import * as CONST from './Const';
  
 export default function Information () {
-
-  const { status, currentPlayer, winner } = store.getState();
+  const status = useSelector(state => state.status);
+  const currentPlayer = useSelector(state => state.currentPlayer);
+  const winner = useSelector(state => state.winner);
 
   let result;
 

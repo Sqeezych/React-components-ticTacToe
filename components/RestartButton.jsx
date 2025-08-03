@@ -1,11 +1,12 @@
-import { store } from '../src/store';
+import { useDispatch } from 'react-redux';
 import styles from "./RestartButton.module.css";
 import { RESTART_GAME } from '../src/actions';
 
 export default function RestartButton() {
+    const dispatch = useDispatch();
 
     function restartGame() {
-        store.dispatch(RESTART_GAME());
+        dispatch(RESTART_GAME());
     }
 
     return <button onClick={restartGame} className={styles.restartButton}>Начать заново</button>

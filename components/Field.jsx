@@ -1,11 +1,13 @@
+import { useSelector, useDispatch } from 'react-redux';
 import FieldLayout from "./FieldLayout";
-import { store } from '../src/store';
 import * as CONST from './Const';
 import { SET_CURRENT_PLAYER, SET_STATUS, SET_FIELD, SET_WINNER } from '../src/actions';
 
 export default function Field() {
-
-    const { field, currentPlayer, status } = store.getState();
+  const dispatch = useDispatch();
+  const field = useSelector(state => state.field);
+  const currentPlayer = useSelector(state => state.currentPlayer);
+  const status = useSelector(state => state.status);
 
     // Функция для проверки окончания игры
     function isEnd(field) {
@@ -31,17 +33,17 @@ export default function Field() {
       } else {
           let arr = [...field];
           arr[id] = currentPlayer;
-          store.dispatch(SET_FIELD(arr));
+          dispatch(SET_FIELD(arr));
           let result = isEnd(arr);
           if (result === CONST.STATUS.WIN) {
-            store.dispatch(SET_STATUS(CONST.STATUS.WIN));
-            store.dispatch(SET_WINNER(currentPlayer));
+            dispatch(SET_STATUS(CONST.STATUS.WIN));
+            dispatch(SET_WINNER(currentPlayer));
           } else if (result === CONST.STATUS.DRAW) {
-            store.dispatch(SET_STATUS(CONST.STATUS.DRAW));
+            dispatch(SET_STATUS(CONST.STATUS.DRAW));
           }
       }      
       const currentPlayerForDispatch = currentPlayer === CONST.PLAYER.X ? CONST.PLAYER.O : CONST.PLAYER.X;
-      store.dispatch(SET_CURRENT_PLAYER(currentPlayerForDispatch));
+      dispatch(SET_CURRENT_PLAYER(currentPlayerForDispatch));
       return;
     }
 
