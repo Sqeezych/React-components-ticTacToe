@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import styles from "./RestartButton.module.css";
-import { RESTART_GAME } from '../src/actions';
+import { RESTART_GAME } from '../../actions';
 
 export default function RestartButton() {
     const dispatch = useDispatch();

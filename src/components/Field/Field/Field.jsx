@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
-import FieldLayout from "./FieldLayout";
-import * as CONST from './Const';
-import { SET_CURRENT_PLAYER, SET_STATUS, SET_FIELD, SET_WINNER } from '../src/actions';
+import FieldLayout from "../FieldLayout/FieldLayout.jsx";
+import * as CONST from '../../../CONST.js';
+import { SET_CURRENT_PLAYER, SET_STATUS, SET_FIELD, SET_WINNER } from '../../../actions.js';
 
 export default function Field() {
   const dispatch = useDispatch();

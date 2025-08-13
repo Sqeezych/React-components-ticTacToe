@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import * as CONST from './Const';
+import * as CONST from '../../../CONST';
  
 export default function Information () {
   const status = useSelector(state => state.status);

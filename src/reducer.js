@@ -1,4 +1,4 @@
-import * as CONST from '../components/Const';
+import * as CONST from './CONST.js';
 
 const initialState = {
     currentPlayer: CONST.PLAYER.X,
