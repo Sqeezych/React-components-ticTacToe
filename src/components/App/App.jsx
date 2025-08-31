@@ -1,15 +1,16 @@
-import Information from '../Information/Information/Information.jsx';
-import Field from '../Field/Field/Field.jsx';
-import RestartButton from '../RestartButton/RestartButton.jsx';
-import styles from './App.module.css';
+import { Component } from "react";
 
-export default function App() {
+import { Information } from '../Information/Information/Information.jsx';
+import { Field } from '../Field/Field/Field.jsx';
+import { RestartButton } from '../RestartButton/RestartButton.jsx';
 
-  return (
-    <div className={styles.gameDiv}>
-      <Information />
-      <Field />
-      <RestartButton /> 
-    </div>
-  )
+export class App extends Component {
+  render() {
+    return (
+      <div className="flex flex-col text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Information />
+        <Field />
+        <RestartButton /> 
+      </div>
+    )}
 }

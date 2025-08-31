@@ -1,53 +1,60 @@
-import { useSelector, useDispatch } from 'react-redux';
-import FieldLayout from "../FieldLayout/FieldLayout.jsx";
+import { Component } from "react";
+import { connect } from 'react-redux';
+import { FieldLayout } from "../FieldLayout/FieldLayout.jsx";
 import * as CONST from '../../../CONST.js';
 import { SET_CURRENT_PLAYER, SET_STATUS, SET_FIELD, SET_WINNER } from '../../../actions.js';
 
-export default function Field() {
-  const dispatch = useDispatch();
-  const field = useSelector(state => state.field);
-  const currentPlayer = useSelector(state => state.currentPlayer);
-  const status = useSelector(state => state.status);
+class FieldContainer extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-    // Функция для проверки окончания игры
-    function isEnd(field) {
-
-      // Проверка на победу 
-      for (let subarr of CONST.WIN_PATTERNS) {
-        if (field[subarr[0]] !== '' 
-          && field[subarr[0]] === field[subarr[1]] 
-          && field[subarr[0]] === field[subarr[2]]) {
-            return CONST.STATUS.WIN;
-        }
-      }
-      // Проверка на ничью
-      if (!field.some(elem => elem === '')) {
-        return CONST.STATUS.DRAW;
+  // Функция для проверки окончания игры
+  isEnd(field) {
+    // Проверка на победу 
+    for (let subarr of CONST.WIN_PATTERNS) {
+      if (field[subarr[0]] !== '' 
+        && field[subarr[0]] === field[subarr[1]] 
+        && field[subarr[0]] === field[subarr[2]]) {
+          return CONST.STATUS.WIN;
       }
     }
-    
-    // Обработчик нажатия на ячейку
-    function onPush(id) {
-      if (status === CONST.STATUS.WIN || status === CONST.STATUS.DRAW || field[id]) {
+    // Проверка на ничью
+    if (!field.some(elem => elem === '')) {
+      return CONST.STATUS.DRAW;
+    }
+  }
+
+  // Обработчик нажатия на ячейку
+  onPush(id) {
+      if (this.props.status === CONST.STATUS.WIN || this.props.status === CONST.STATUS.DRAW || this.props.field[id]) {
         return;
       } else {
-          let arr = [...field];
-          arr[id] = currentPlayer;
-          dispatch(SET_FIELD(arr));
-          let result = isEnd(arr);
+          let arr = [...this.props.field];
+          arr[id] = this.props.currentPlayer;
+          this.props.dispatch(SET_FIELD(arr));
+          let result = this.isEnd(arr);
           if (result === CONST.STATUS.WIN) {
-            dispatch(SET_STATUS(CONST.STATUS.WIN));
-            dispatch(SET_WINNER(currentPlayer));
+            this.props.dispatch(SET_STATUS(CONST.STATUS.WIN));
+            this.props.dispatch(SET_WINNER(this.props.currentPlayer));
           } else if (result === CONST.STATUS.DRAW) {
-            dispatch(SET_STATUS(CONST.STATUS.DRAW));
+            this.props.dispatch(SET_STATUS(CONST.STATUS.DRAW));
           }
       }      
-      const currentPlayerForDispatch = currentPlayer === CONST.PLAYER.X ? CONST.PLAYER.O : CONST.PLAYER.X;
-      dispatch(SET_CURRENT_PLAYER(currentPlayerForDispatch));
+      const currentPlayerForDispatch = this.props.currentPlayer === CONST.PLAYER.X ? CONST.PLAYER.O : CONST.PLAYER.X;
+      this.props.dispatch(SET_CURRENT_PLAYER(currentPlayerForDispatch));
       return;
     }
 
-    return (
-        <FieldLayout field={field} onPush={onPush}/>
-    )
+  render() {
+    return <FieldLayout field={this.props.field} onPush={this.onPush.bind(this)}/>
   }
+}
+
+const mapStateToProps = (state) => ({
+  field: state.field,
+  currentPlayer: state.currentPlayer,
+  status: state.status,
+})
+
+export const Field = connect(mapStateToProps)(FieldContainer);

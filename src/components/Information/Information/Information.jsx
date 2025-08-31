@@ -1,20 +1,36 @@
-import { useSelector } from 'react-redux';
+import { Component } from "react";
+import { connect } from "react-redux";
 import * as CONST from '../../../CONST';
- 
-export default function Information () {
-  const status = useSelector(state => state.status);
-  const currentPlayer = useSelector(state => state.currentPlayer);
-  const winner = useSelector(state => state.winner);
 
-  let result;
-
-  if (status === CONST.STATUS.WIN) {
-    result = `Победил ${winner}`;
-  } else if (status === CONST.STATUS.DRAW) {
-    result = `Ничья`;
-  } else {
-    result = `Ход игрока ${currentPlayer}`;
+class InformationContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      result: '',
+    }
   }
 
-  return <div>{result}</div>
+  // Проверка результата 
+  getResult() {
+    if (this.props.status === CONST.STATUS.WIN) {
+      this.state.result = `Победил ${this.props.winner}`;
+    } else if (this.props.status === CONST.STATUS.DRAW) {
+      this.state.result = `Ничья`;
+    } else {
+      this.state.result = `Ход игрока ${this.props.currentPlayer}`;
+    }
+  }
+
+  render() {
+    this.getResult();
+    return <div>{this.state.result}</div>
+  }
 }
+
+const mapStateToProps = (state) => ({
+  status: state.status,
+  currentPlayer: state.currentPlayer,
+  winner: state.winner,
+})
+
+export const Information = connect(mapStateToProps)(InformationContainer);
